@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego de la Escalera - Día de la Madre</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', museo-sans;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color:  #5F3098;
+        }
+        h1 {
+            color: #333;
+        }
+        .escalera {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .bloque {
+            width: 200px;
+            height: 60px;
+            margin: 5px 0;
+            background-color: #f1c40f;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+        }
+        .pregunta {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .botones button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .si { background-color: #2ecc71; color: white; }
+        .no { background-color: #e74c3c; color: white; }
+        #avatar {
+            font-size: 28px;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        #mensaje-final {
+            font-size: 20px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Vive el Día de la Madre sin Violencia 🎉</h1>
+        <div class="escalera" id="escalera">
+        <div class="bloque" style="background-color:#6a89cc">Escalón 5</div>
+	<div class="bloque" style="background-color:#38ada9">Escalón 4</div>        
+	<div class="bloque" style="background-color:#e58e26">Escalón 3</div>
+	<div class="bloque" style="background-color:#e55039">Escalón 2</div>
+	<div class="bloque" style="background-color:#b71540">Escalón 1</div>
+	<div id="avatar">😊</div>
+    </div>
+
+    <div class="pregunta" id="pregunta"></div>
+    <div class="botones">
+        <button class="si" onclick="responder(true)">Sí</button>
+        <button class="no" onclick="responder(false)">No</button>
+    </div>
+    <div id="mensaje-final"></div>
+
+    <script>
+        const preguntas = [
+            "¿Puedes decir 'feliz día' sin pensar en lo que dolió de tu infancia?",
+            "¿Puedes pasar más de una hora con tu familia sin peleas?",
+            "¿Evitas usar indirectas el Día de la Madre?",
+            "¿Alguna vez resolviste un problema familiar sin gritar?",
+            "¿Le has dicho 'gracias' a tu mamá sinceramente?"
+        ];
+
+        let indice = 0;
+        let escalon = 0;
+        const preguntaTexto = document.getElementById("pregunta");
+        const avatar = document.getElementById("avatar");
+        const mensajeFinal = document.getElementById("mensaje-final");
+        const escalera = document.getElementById("escalera").children;
+
+        function mostrarPregunta() {
+            if (indice < preguntas.length) {
+                preguntaTexto.textContent = preguntas[indice];
+            } else {
+                finalizar();
+            }
+        }
+
+        function responder(respuesta) {
+            if (respuesta && escalon < escalera.length) {
+                escalera[escalon].style.border = "3px solid #27ae60";
+                escalon++;
+                avatar.style.transform = `translateY(-${escalon * 70}px)`;
+            }
+            indice++;
+            mostrarPregunta();
+        }
+
+        function finalizar() {
+            preguntaTexto.style.display = "none";
+            document.querySelector(".botones").style.display = "none";
+            mensajeFinal.style.display = "block";
+            
+            let mensaje = "";
+            if (escalon === 5) {
+                mensaje = "¡Felicidades! Has alcanzado el máximo nivel de convivencia familiar. 🎉<br>Eres un ejemplo de amor y respeto hacia tu madre. ❤️";
+            } else if (escalon >= 3) {
+                mensaje = `¡Buen trabajo! Has llegado hasta el Escalón ${escalon}.<br>Vas por buen camino en la construcción de relaciones familiares saludables. 🌟`;
+            } else {
+                mensaje = `Has llegado hasta el Escalón ${escalon}.<br>Recuerda que el Día de la Madre es una oportunidad para sanar y construir mejores relaciones. 💖`;
+            }
+            
+            mensajeFinal.innerHTML = mensaje;
+        }
+
+        mostrarPregunta();
+    </script>
+</body>
+</html>
+    
