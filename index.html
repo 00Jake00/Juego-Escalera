@@ -4,33 +4,35 @@
     <meta charset="UTF-8">
     <title>Juego de la Escalera - Día de la Madre</title>
     <style>
-	.fondo-completo {
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    width: 100vw;
-	    height: 100vh;
-	    z-index: -1;
-	    background-image: url('CNSCC_Campaña Madres_FondoEscritorio.jpg');
-	    background-size: cover;
-	    background-position: center;
-	    background-repeat: no-repeat;
-        }
-        body {
-            margin: 0;
-    	    padding: 0;
+	body {
+	    margin: 0;
+	    padding: 0;
 	    width: 100%;
-	    height: 100vh;
+	    min-height: 100vh;
 	    font-family: 'Segoe UI', museo-sans;
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
 	    background-image: url('CNSCC_Campaña Madres_FondoEscritorio.jpg');
 	    background-size: cover;
-	    background-position: center;
+	    background-position: top center; /* Cambiado a top center */
 	    background-repeat: no-repeat;
 	    background-attachment: fixed;
 	    overflow-x: hidden;
+	    position: relative;
+	}
+	
+	/* Añade este nuevo estilo para el contenedor principal */
+	.main-container {
+	    width: 100%;
+	    max-width: 1200px;
+	    padding: 20px;
+	    margin-top: 50px; /* Ajusta este valor según necesites */
+	    margin-bottom: 50px;
+	    background-color: rgba(255, 255, 255, 0.8); /* Opcional: fondo semitransparente */
+	    border-radius: 10px;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Opcional: sombra */
+	}
         }
         h1 {
             color: #333;
