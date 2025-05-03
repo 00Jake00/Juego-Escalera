@@ -2,54 +2,79 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de la Escalera - Día de la Madre</title>
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+        
+        body {
             width: 100%;
             min-height: 100vh;
-            font-family: 'Segoe UI', museo-sans;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             background-image: url('CNSCC_Campaña Madres_FondoEscritorio.jpg');
             background-size: cover;
-            background-position: top center;
+            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            overflow-x: hidden;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
             position: relative;
-            color: white; /* Texto blanco por defecto */
+        }
+        
+        /* Fondo diferente para móviles */
+        @media (max-width: 768px) {
+            body {
+                background-image: url('CNSCC_Campana Madres_FondoMobiles.jpg');
+                background-attachment: scroll;
+            }
         }
         
         .main-container {
             width: 100%;
             max-width: 1200px;
             padding: 20px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            background-color: transparent; /* Eliminamos el fondo blanco */
+            margin: 30px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: transparent;
         }
         
         .logo-container {
             text-align: center;
             margin-bottom: 30px;
+            width: 100%;
         }
         
         .logo-container img {
-            max-width: 50%; /* Imagen más grande y centrada */
+            max-width: 50%;
             height: auto;
+        }
+        
+        /* Ajustes para móviles */
+        @media (max-width: 768px) {
+            .logo-container img {
+                max-width: 80%;
+            }
+            
+            .main-container {
+                padding: 15px;
+                margin: 20px 0;
+            }
         }
         
         .escalera {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 30px 0;
+            margin: 20px 0;
         }
         
         .bloque {
@@ -66,39 +91,89 @@
             color: #fff;
         }
         
+        @media (max-width: 768px) {
+            .bloque {
+                width: 160px;
+                height: 50px;
+                font-size: 16px;
+            }
+        }
+        
         .pregunta {
             font-size: 20px;
-            margin-bottom: 15px;
+            margin: 20px 0;
             text-align: center;
             font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            padding: 0 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .pregunta {
+                font-size: 18px;
+                margin: 15px 0;
+            }
+        }
+        
+        .reflexion-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            max-width: 800px;
+            padding: 0 15px;
+            text-align: center;
         }
         
         .reflexion {
             font-size: 18px;
-            margin: 25px 0;
-            text-align: center;
+            margin-bottom: 25px;
             font-style: italic;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            display: none;
-            max-width: 800px;
             line-height: 1.5;
         }
         
+        .dato-importante {
+            background-color: rgba(220, 53, 69, 0.7);
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            line-height: 1.4;
+        }
+        
+        .btn-continuar {
+            margin: 15px 0;
+            padding: 12px 30px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-continuar:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        
         .botones {
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
         }
         
         .botones button {
-            margin: 5px;
+            margin: 8px;
             padding: 12px 25px;
             font-size: 16px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
+            min-width: 100px;
         }
         
         .si { 
@@ -117,48 +192,33 @@
         }
         
         #avatar {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 10px;
             transition: transform 0.5s ease-in-out;
         }
         
         #mensaje-final {
             font-size: 22px;
-            margin-top: 30px;
+            margin: 30px 0;
             display: none;
             text-align: center;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
             line-height: 1.6;
-            max-width: 800px;
-        }
-        
-        .dato-importante {
-            background-color: rgba(220, 53, 69, 0.7);
-            border-left: 4px solid #dc3545;
-            padding: 15px;
-            margin: 25px 0;
-            font-size: 16px;
-            display: none;
-            border-radius: 5px;
-            color: white;
+            padding: 0 15px;
             max-width: 800px;
         }
         
         @media (max-width: 768px) {
-            .logo-container img {
-                max-width: 80%;
-            }
-            
-            .pregunta, .reflexion {
-                font-size: 18px;
-                padding: 0 15px;
-            }
-            
-            .bloque {
-                width: 180px;
-                height: 50px;
+            .reflexion, .dato-importante {
                 font-size: 16px;
+            }
+            
+            .btn-continuar, .botones button {
+                padding: 10px 20px;
+                font-size: 15px;
+            }
+            
+            #mensaje-final {
+                font-size: 18px;
             }
         }
     </style>
@@ -182,13 +242,18 @@
         </div>
 
         <div class="pregunta" id="pregunta"></div>
-        <div class="reflexion" id="reflexion"></div>
-        <div class="dato-importante" id="dato-importante"></div>
         
-        <div class="botones">
+        <div class="reflexion-container" id="reflexion-container">
+            <div class="reflexion" id="reflexion"></div>
+            <div class="dato-importante" id="dato-importante" style="display: none;"></div>
+            <button class="btn-continuar" onclick="continuar()">Continuar</button>
+        </div>
+        
+        <div class="botones" id="botones-respuesta">
             <button class="si" onclick="responder(true)">Sí</button>
             <button class="no" onclick="responder(false)">No</button>
         </div>
+        
         <div id="mensaje-final"></div>
     </div>
 
@@ -231,9 +296,12 @@
 
         let indice = 0;
         let escalon = 0;
+        let respuestaActual = false;
         const preguntaTexto = document.getElementById("pregunta");
         const reflexionTexto = document.getElementById("reflexion");
+        const reflexionContainer = document.getElementById("reflexion-container");
         const datoImportante = document.getElementById("dato-importante");
+        const botonesRespuesta = document.getElementById("botones-respuesta");
         const avatar = document.getElementById("avatar");
         const mensajeFinal = document.getElementById("mensaje-final");
         const escalera = document.getElementById("escalera").children;
@@ -251,48 +319,43 @@
                     datoImportante.style.display = "none";
                 }
                 
-                reflexionTexto.style.display = "none";
+                // Mostrar elementos
+                preguntaTexto.style.display = "block";
+                botonesRespuesta.style.display = "flex";
+                reflexionContainer.style.display = "none";
             } else {
                 finalizar();
             }
         }
 
         function responder(respuesta) {
-            // Mostrar la reflexión correspondiente
-            reflexionTexto.style.display = "block";
+            respuestaActual = respuesta;
             
-            // Ocultar botones temporalmente
-            document.querySelector(".botones").style.visibility = "hidden";
+            // Ocultar pregunta y botones
+            preguntaTexto.style.display = "none";
+            botonesRespuesta.style.display = "none";
             
-            // Avanzar al siguiente escalón solo si la respuesta es positiva
-            if (respuesta && escalon < 8) {
-                setTimeout(() => {
-                    escalera[escalon].style.border = "3px solid #27ae60";
-                    escalon++;
-                    avatar.style.transform = `translateY(-${escalon * 70}px)`;
-                    
-                    // Avanzar a la siguiente pregunta después de un retraso mayor
-                    setTimeout(() => {
-                        indice++;
-                        mostrarPregunta();
-                        document.querySelector(".botones").style.visibility = "visible";
-                    }, 5000); // 5 segundos para leer la reflexión
-                }, 1000); // 1 segundo de espera inicial
-            } else {
-                // Solo avanzar a la siguiente pregunta
-                setTimeout(() => {
-                    indice++;
-                    mostrarPregunta();
-                    document.querySelector(".botones").style.visibility = "visible";
-                }, 5000); // 5 segundos para leer la reflexión
+            // Mostrar reflexión
+            reflexionContainer.style.display = "flex";
+        }
+
+        function continuar() {
+            // Avanzar al siguiente escalón solo si la respuesta fue positiva
+            if (respuestaActual && escalon < 8) {
+                escalera[escalon].style.border = "3px solid #27ae60";
+                escalon++;
+                avatar.style.transform = `translateY(-${escalon * 70}px)`;
             }
+            
+            // Avanzar a la siguiente pregunta
+            indice++;
+            mostrarPregunta();
         }
 
         function finalizar() {
             preguntaTexto.style.display = "none";
-            reflexionTexto.style.display = "none";
-            datoImportante.style.display = "none";
-            document.querySelector(".botones").style.display = "none";
+            botonesRespuesta.style.display = "none";
+            reflexionContainer.style.display = "none";
             mensajeFinal.style.display = "block";
             
             let mensaje = "";
@@ -307,6 +370,7 @@
             mensajeFinal.innerHTML = mensaje;
         }
 
+        // Iniciar el juego
         mostrarPregunta();
     </script>
 </body>
