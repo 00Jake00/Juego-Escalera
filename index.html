@@ -4,45 +4,42 @@
     <meta charset="UTF-8">
     <title>Juego de la Escalera - Día de la Madre</title>
     <style>
-	body {
-	    margin: 0;
-	    padding: 0;
-	    width: 100%;
-	    min-height: 100vh;
-	    font-family: 'Segoe UI', museo-sans;
-	    display: flex;
-	    flex-direction: column;
-	    align-items: center;
-	    background-image: url('CNSCC_Campaña Madres_FondoEscritorio.jpg');
-	    background-size: cover;
-	    background-position: top center; /* Cambiado a top center */
-	    background-repeat: no-repeat;
-	    background-attachment: fixed;
-	    overflow-x: hidden;
-	    position: relative;
-	}
-	
-	/* Añade este nuevo estilo para el contenedor principal */
-	.main-container {
-	    width: 100%;
-	    max-width: 1200px;
-	    padding: 20px;
-	    margin-top: 50px; /* Ajusta este valor según necesites */
-	    margin-bottom: 50px;
-	    background-color: rgba(255, 255, 255, 0.8); /* Opcional: fondo semitransparente */
-	    border-radius: 10px;
-	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Opcional: sombra */
-	}
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Segoe UI', museo-sans;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('CNSCC_Campaña Madres_FondoEscritorio.jpg');
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
         }
-        h1 {
-            color: #333;
+        
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        
         .escalera {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 30px 0;
         }
+        
         .bloque {
             width: 200px;
             height: 60px;
@@ -56,11 +53,23 @@
             font-size: 18px;
             color: #fff;
         }
+        
         .pregunta {
             font-size: 18px;
             margin-bottom: 20px;
             text-align: center;
+            font-weight: bold;
         }
+        
+        .reflexion {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            display: none;
+        }
+        
         .botones button {
             margin: 5px;
             padding: 10px 20px;
@@ -69,86 +78,163 @@
             border-radius: 6px;
             cursor: pointer;
         }
+        
         .si { background-color: #2ecc71; color: white; }
         .no { background-color: #e74c3c; color: white; }
+        
         #avatar {
             font-size: 28px;
             margin-bottom: 10px;
             transition: transform 0.3s;
         }
+        
         #mensaje-final {
             font-size: 20px;
             margin-top: 20px;
             display: none;
             text-align: center;
         }
+        
+        .dato-importante {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 14px;
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <img src="Identificador.png" alt="Vive el Día de la Madre sin Violencia" style="max-width: 25%; height: auto; margin-top: 10px; margin-bottom: 20px;">
+    <div class="main-container">
+        <img src="Identificador.png" alt="Vive el Día de la Madre sin Violencia" style="max-width: 25%; height: auto; margin-top: 10px; margin-bottom: 20px;">
 
         <div class="escalera" id="escalera">
-        <div class="bloque" style="background-color:#6a89cc">Escalón 5</div>
-	<div class="bloque" style="background-color:#38ada9">Escalón 4</div>        
-	<div class="bloque" style="background-color:#e58e26">Escalón 3</div>
-	<div class="bloque" style="background-color:#e55039">Escalón 2</div>
-	<div class="bloque" style="background-color:#b71540">Escalón 1</div>
-	<div id="avatar">😊</div>
-    </div>
+            <div class="bloque" style="background-color:#6a89cc">Escalón 8</div>
+            <div class="bloque" style="background-color:#38ada9">Escalón 7</div>        
+            <div class="bloque" style="background-color:#e58e26">Escalón 6</div>
+            <div class="bloque" style="background-color:#e55039">Escalón 5</div>
+            <div class="bloque" style="background-color:#b71540">Escalón 4</div>
+            <div class="bloque" style="background-color:#6a89cc">Escalón 3</div>
+            <div class="bloque" style="background-color:#38ada9">Escalón 2</div>
+            <div class="bloque" style="background-color:#e58e26">Escalón 1</div>
+            <div id="avatar">😊</div>
+        </div>
 
-    <div class="pregunta" id="pregunta"></div>
-    <div class="botones">
-        <button class="si" onclick="responder(true)">Sí</button>
-        <button class="no" onclick="responder(false)">No</button>
+        <div class="pregunta" id="pregunta"></div>
+        <div class="reflexion" id="reflexion"></div>
+        <div class="dato-importante" id="dato-importante"></div>
+        
+        <div class="botones">
+            <button class="si" onclick="responder(true)">Sí</button>
+            <button class="no" onclick="responder(false)">No</button>
+        </div>
+        <div id="mensaje-final"></div>
     </div>
-    <div id="mensaje-final"></div>
 
     <script>
         const preguntas = [
-            "¿Puedes decir 'feliz día' sin pensar en lo que dolió de tu infancia?",
-            "¿Puedes pasar más de una hora con tu familia sin peleas?",
-            "¿Evitas usar indirectas el Día de la Madre?",
-            "¿Alguna vez resolviste un problema familiar sin gritar?",
-            "¿Le has dicho 'gracias' a tu mamá sinceramente?"
+            {
+                texto: "¿Sientes que los oficios de la casa, siempre los hace mamá?",
+                reflexion: "El trabajo del hogar no debe ser responsabilidad de una sola persona. Reflexiona sobre cómo puedes compartir las tareas del día a día para equilibrar la carga."
+            },
+            {
+                texto: "¿Crees que es mamá quien debe encargarse de organizar la casa y las celebraciones como el día de la madre?",
+                reflexion: "El cuidado no es un rol exclusivo de las madres. Este día es una oportunidad para reconocer y asumir responsabilidades compartidas en lugar de delegar todo a una sola persona."
+            },
+            {
+                texto: "¿Crees que el cuidado de casa corresponde a las madres?",
+                reflexion: "El cuidado debe ser reconocido como trabajo y no como algo que se da por sentado. Reflexiona sobre cómo valoras las labores que las madres realizan todos los días y cómo puedes contribuir activamente."
+            },
+            {
+                texto: "¿Te parece que mamá tiene pocos momentos de descanso?",
+                reflexion: "Las madres también necesitan tiempo para relajarse. Reflexiona sobre cómo puedes hacer de este día una oportunidad para que todas las personas se sientan cuidadas y respetadas, sin sobrecargar a ninguna."
+            },
+            {
+                texto: "¿Sientes que mamá es la encargada de que todos se sientan bien en la familia?",
+                reflexion: "El cuidado emocional debe ser compartido. Reflexiona sobre cómo puedes ser más consciente de tus propios roles en el apoyo emocional de los demás y redistribuir las cargas."
+            },
+            {
+                texto: "¿En casa celebran el Día de la Madre con bebidas embriagantes?",
+                reflexion: "Las bebidas pueden afectar el control emocional y aumentar el riesgo de conflictos. Reflexionar sobre su impacto ayuda a las personas a generar un consumo responsable.",
+                dato: "De acuerdo con la Policía Metropolitana de Bogotá, entre el 12 al 14 de mayo de 2023 se presentaron 255 casos de violencia intrafamiliar. (bogota.gov.co)"
+            },
+            {
+                texto: "¿Alguna vez ha habido una discusión en tu familia durante las celebraciones de Día de la Madre?",
+                reflexion: "Las tensiones son normales, pero cómo las manejamos es lo que marca la diferencia. Reflexiona sobre cómo puedes contribuir a que la celebración se mantenga pacífica y sin conflictos."
+            },
+            {
+                texto: "¿Te gustaría empezar a cooperar con mamá en las tareas del hogar?",
+                reflexion: "El Día de la Madre es un recordatorio, pero el reconocimiento y la equidad deben ser continuos. Reflexiona sobre cómo puedes asumir más responsabilidades cotidianas para aliviar la carga de las madres en tu vida."
+            }
         ];
 
         let indice = 0;
         let escalon = 0;
         const preguntaTexto = document.getElementById("pregunta");
+        const reflexionTexto = document.getElementById("reflexion");
+        const datoImportante = document.getElementById("dato-importante");
         const avatar = document.getElementById("avatar");
         const mensajeFinal = document.getElementById("mensaje-final");
         const escalera = document.getElementById("escalera").children;
 
         function mostrarPregunta() {
             if (indice < preguntas.length) {
-                preguntaTexto.textContent = preguntas[indice];
+                preguntaTexto.textContent = preguntas[indice].texto;
+                reflexionTexto.textContent = preguntas[indice].reflexion;
+                
+                // Mostrar dato importante si existe
+                if (preguntas[indice].dato) {
+                    datoImportante.textContent = preguntas[indice].dato;
+                    datoImportante.style.display = "block";
+                } else {
+                    datoImportante.style.display = "none";
+                }
+                
+                reflexionTexto.style.display = "none";
             } else {
                 finalizar();
             }
         }
 
         function responder(respuesta) {
-            if (respuesta && escalon < escalera.length) {
-                escalera[escalon].style.border = "3px solid #27ae60";
-                escalon++;
-                avatar.style.transform = `translateY(-${escalon * 70}px)`;
+            // Mostrar la reflexión correspondiente
+            reflexionTexto.style.display = "block";
+            
+            // Avanzar al siguiente escalón solo si la respuesta es positiva
+            if (respuesta && escalon < 8) { // Ahora hay 8 escalones
+                setTimeout(() => {
+                    escalera[escalon].style.border = "3px solid #27ae60";
+                    escalon++;
+                    avatar.style.transform = `translateY(-${escalon * 70}px)`;
+                    
+                    // Avanzar a la siguiente pregunta después de un breve retraso
+                    indice++;
+                    mostrarPregunta();
+                }, 2000); // 2 segundos para leer la reflexión
+            } else {
+                // Solo avanzar a la siguiente pregunta
+                setTimeout(() => {
+                    indice++;
+                    mostrarPregunta();
+                }, 2000);
             }
-            indice++;
-            mostrarPregunta();
         }
 
         function finalizar() {
             preguntaTexto.style.display = "none";
+            reflexionTexto.style.display = "none";
+            datoImportante.style.display = "none";
             document.querySelector(".botones").style.display = "none";
             mensajeFinal.style.display = "block";
             
             let mensaje = "";
-            if (escalon === 5) {
-                mensaje = "¡Felicidades! Has alcanzado el máximo nivel de convivencia familiar. 🎉<br>Eres un ejemplo de amor y respeto hacia tu madre. ❤️";
-            } else if (escalon >= 3) {
-                mensaje = `¡Buen trabajo! Has llegado hasta el Escalón ${escalon}.<br>Vas por buen camino en la construcción de relaciones familiares saludables. 🌟`;
+            if (escalon >= 7) {
+                mensaje = "¡Felicidades! Has alcanzado el máximo nivel de conciencia sobre equidad en el hogar. 🎉<br>Eres un ejemplo de corresponsabilidad y apoyo familiar. ❤️";
+            } else if (escalon >= 4) {
+                mensaje = `¡Buen trabajo! Has llegado hasta el Escalón ${escalon}.<br>Vas por buen camino en el reconocimiento de las labores del hogar como responsabilidad compartida. 🌟`;
             } else {
-                mensaje = `Has llegado hasta el Escalón ${escalon}.<br>Recuerda que el Día de la Madre es una oportunidad para sanar y construir mejores relaciones. 💖`;
+                mensaje = `Has llegado hasta el Escalón ${escalon}.<br>Recuerda que el Día de la Madre es una oportunidad para reflexionar sobre cómo podemos distribuir mejor las tareas del hogar y mostrar aprecio todo el año. 💖`;
             }
             
             mensajeFinal.innerHTML = mensaje;
@@ -158,4 +244,3 @@
     </script>
 </body>
 </html>
-    
