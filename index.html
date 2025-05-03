@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de la Escalera - Día de la Madre</title>
+    <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -14,7 +15,7 @@
         body {
             width: 100%;
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Museo Sans Rounded', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -33,6 +34,7 @@
             body {
                 background-image: url('CNSCC_Campana Madres_FondoMobiles.jpg');
                 background-attachment: scroll;
+                justify-content: flex-start; /* Alinea contenido arriba */
             }
         }
         
@@ -40,33 +42,44 @@
             width: 100%;
             max-width: 1200px;
             padding: 20px;
-            margin: 30px 0;
+            margin: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             background-color: transparent;
+            flex-grow: 1;
         }
         
         .logo-container {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             width: 100%;
         }
         
         .logo-container img {
-            max-width: 50%;
+            max-width: 30%; /* 30% para todos los dispositivos */
             height: auto;
         }
         
-        /* Ajustes para móviles */
+        /* Ajustes específicos para móviles */
         @media (max-width: 768px) {
-            .logo-container img {
-                max-width: 80%;
-            }
-            
             .main-container {
                 padding: 15px;
-                margin: 20px 0;
+                margin: 15px 0;
+                justify-content: space-between; /* Distribuye espacio */
+                min-height: calc(100vh - 60px); /* Ajusta altura */
+            }
+            
+            .logo-container {
+                margin-bottom: 15px;
+            }
+            
+            .logo-container img {
+                max-width: 30%; /* 30% en móviles como solicitaste */
+            }
+            
+            .botones {
+                margin-bottom: 60px; /* Espacio para el logo de la secretaría */
             }
         }
         
@@ -74,7 +87,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         
         .bloque {
@@ -89,6 +102,7 @@
             font-weight: bold;
             font-size: 18px;
             color: #fff;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         @media (max-width: 768px) {
@@ -105,6 +119,7 @@
             text-align: center;
             font-weight: bold;
             padding: 0 15px;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         @media (max-width: 768px) {
@@ -129,6 +144,7 @@
             margin-bottom: 25px;
             font-style: italic;
             line-height: 1.5;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         .dato-importante {
@@ -139,6 +155,7 @@
             font-size: 16px;
             border-radius: 5px;
             line-height: 1.4;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         .btn-continuar {
@@ -151,6 +168,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         .btn-continuar:hover {
@@ -174,6 +192,7 @@
             cursor: pointer;
             transition: all 0.3s;
             min-width: 100px;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         .si { 
@@ -205,6 +224,7 @@
             line-height: 1.6;
             padding: 0 15px;
             max-width: 800px;
+            font-family: 'Museo Sans Rounded', sans-serif;
         }
         
         @media (max-width: 768px) {
@@ -220,13 +240,19 @@
             #mensaje-final {
                 font-size: 18px;
             }
+            
+            /* Ajuste adicional para los botones en móvil */
+            .botones {
+                margin-bottom: 80px; /* Más espacio para el logo */
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
         <div class="logo-container">
-            <img src="Identificador.png" alt="Vive el Día de la Madre sin Violencia" style="max-width: 40%; height: auto; margin-top: 10px; margin-bottom: 20px;">
+            <img src="Identificador.png" alt="Vive el Día de la Madre sin Violencia">
         </div>
 
         <div class="escalera" id="escalera">
