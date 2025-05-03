@@ -34,7 +34,7 @@
             body {
                 background-image: url('CNSCC_Campana Madres_FondoMobiles.jpg');
                 background-attachment: scroll;
-                justify-content: flex-start; /* Alinea contenido arriba */
+                justify-content: flex-start;
             }
         }
         
@@ -56,8 +56,9 @@
             width: 100%;
         }
         
+        /* Logo más grande en PC (35%) y móvil (40%) */
         .logo-container img {
-            max-width: 30%; /* 30% para todos los dispositivos */
+            max-width: 35%;
             height: auto;
         }
         
@@ -66,8 +67,8 @@
             .main-container {
                 padding: 15px;
                 margin: 15px 0;
-                justify-content: space-between; /* Distribuye espacio */
-                min-height: calc(100vh - 60px); /* Ajusta altura */
+                justify-content: space-between;
+                min-height: calc(100vh - 60px);
             }
             
             .logo-container {
@@ -75,11 +76,18 @@
             }
             
             .logo-container img {
-                max-width: 30%; /* 30% en móviles como solicitaste */
+                max-width: 40%; /* Aumentado a 40% para móvil */
             }
             
             .botones {
-                margin-bottom: 60px; /* Espacio para el logo de la secretaría */
+                margin-bottom: 80px;
+            }
+        }
+        
+        /* Ajuste especial para pantallas muy grandes */
+        @media (min-width: 1600px) {
+            body {
+                background-size: 100% 100%;
             }
         }
         
@@ -241,9 +249,8 @@
                 font-size: 18px;
             }
             
-            /* Ajuste adicional para los botones en móvil */
             .botones {
-                margin-bottom: 80px; /* Más espacio para el logo */
+                margin-bottom: 80px;
                 margin-top: 10px;
             }
         }
@@ -337,7 +344,6 @@
                 preguntaTexto.textContent = preguntas[indice].texto;
                 reflexionTexto.textContent = preguntas[indice].reflexion;
                 
-                // Mostrar dato importante si existe
                 if (preguntas[indice].dato) {
                     datoImportante.textContent = preguntas[indice].dato;
                     datoImportante.style.display = "block";
@@ -345,7 +351,6 @@
                     datoImportante.style.display = "none";
                 }
                 
-                // Mostrar elementos
                 preguntaTexto.style.display = "block";
                 botonesRespuesta.style.display = "flex";
                 reflexionContainer.style.display = "none";
@@ -356,24 +361,18 @@
 
         function responder(respuesta) {
             respuestaActual = respuesta;
-            
-            // Ocultar pregunta y botones
             preguntaTexto.style.display = "none";
             botonesRespuesta.style.display = "none";
-            
-            // Mostrar reflexión
             reflexionContainer.style.display = "flex";
         }
 
         function continuar() {
-            // Avanzar al siguiente escalón solo si la respuesta fue positiva
             if (respuestaActual && escalon < 8) {
                 escalera[escalon].style.border = "3px solid #27ae60";
                 escalon++;
                 avatar.style.transform = `translateY(-${escalon * 70}px)`;
             }
             
-            // Avanzar a la siguiente pregunta
             indice++;
             mostrarPregunta();
         }
@@ -396,7 +395,6 @@
             mensajeFinal.innerHTML = mensaje;
         }
 
-        // Iniciar el juego
         mostrarPregunta();
     </script>
 </body>
