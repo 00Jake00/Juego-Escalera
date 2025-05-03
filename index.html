@@ -27,6 +27,13 @@
             color: white;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
             position: relative;
+            overflow-x: hidden;
+        }
+        
+        @media (min-width: 1600px) {
+            body {
+                background-size: cover;
+            }
         }
         
         /* Fondo diferente para móviles */
@@ -36,12 +43,6 @@
                 background-attachment: scroll;
                 justify-content: flex-start;
             }
-        @media (min-width: 1600px) {
-            body {
-                background-size: cover;
-            }
-    }
-            
         }
         
         .main-container {
@@ -62,10 +63,18 @@
             width: 100%;
         }
         
-        /* Logo más grande en PC (35%) y móvil (40%) */
         .logo-container img {
             max-width: 35%;
             height: auto;
+        }
+        
+        /* Contenedor principal del juego (escalera + preguntas) */
+        .juego-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
         }
         
         /* Ajustes específicos para móviles */
@@ -82,18 +91,17 @@
             }
             
             .logo-container img {
-                max-width: 40%; /* Aumentado a 40% para móvil */
+                max-width: 40%;
+            }
+            
+            .juego-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
             }
             
             .botones {
                 margin-bottom: 80px;
-            }
-        }
-        
-        /* Ajuste especial para pantallas muy grandes */
-        @media (min-width: 1600px) {
-            body {
-                background-size: 100% 100%;
             }
         }
         
@@ -102,6 +110,7 @@
             flex-direction: column;
             align-items: center;
             margin: 15px 0;
+            min-width: 200px;
         }
         
         .bloque {
@@ -125,6 +134,13 @@
                 height: 50px;
                 font-size: 16px;
             }
+        }
+        
+        .contenido-derecha {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
         }
         
         .pregunta {
@@ -268,32 +284,36 @@
             <img src="Identificador.png" alt="Vive el Día de la Madre sin Violencia">
         </div>
 
-        <div class="escalera" id="escalera">
-            <div class="bloque" style="background-color:#6a89cc">Escalón 8</div>
-            <div class="bloque" style="background-color:#38ada9">Escalón 7</div>        
-            <div class="bloque" style="background-color:#e58e26">Escalón 6</div>
-            <div class="bloque" style="background-color:#e55039">Escalón 5</div>
-            <div class="bloque" style="background-color:#b71540">Escalón 4</div>
-            <div class="bloque" style="background-color:#6a89cc">Escalón 3</div>
-            <div class="bloque" style="background-color:#38ada9">Escalón 2</div>
-            <div class="bloque" style="background-color:#e58e26">Escalón 1</div>
-            <div id="avatar">😊</div>
-        </div>
+        <div class="juego-container">
+            <div class="escalera" id="escalera">
+                <div class="bloque" style="background-color:#6a89cc">Escalón 8</div>
+                <div class="bloque" style="background-color:#38ada9">Escalón 7</div>        
+                <div class="bloque" style="background-color:#e58e26">Escalón 6</div>
+                <div class="bloque" style="background-color:#e55039">Escalón 5</div>
+                <div class="bloque" style="background-color:#b71540">Escalón 4</div>
+                <div class="bloque" style="background-color:#6a89cc">Escalón 3</div>
+                <div class="bloque" style="background-color:#38ada9">Escalón 2</div>
+                <div class="bloque" style="background-color:#e58e26">Escalón 1</div>
+                <div id="avatar">😊</div>
+            </div>
 
-        <div class="pregunta" id="pregunta"></div>
-        
-        <div class="reflexion-container" id="reflexion-container">
-            <div class="reflexion" id="reflexion"></div>
-            <div class="dato-importante" id="dato-importante" style="display: none;"></div>
-            <button class="btn-continuar" onclick="continuar()">Continuar</button>
+            <div class="contenido-derecha">
+                <div class="pregunta" id="pregunta"></div>
+                
+                <div class="reflexion-container" id="reflexion-container">
+                    <div class="reflexion" id="reflexion"></div>
+                    <div class="dato-importante" id="dato-importante" style="display: none;"></div>
+                    <button class="btn-continuar" onclick="continuar()">Continuar</button>
+                </div>
+                
+                <div class="botones" id="botones-respuesta">
+                    <button class="si" onclick="responder(true)">Sí</button>
+                    <button class="no" onclick="responder(false)">No</button>
+                </div>
+                
+                <div id="mensaje-final"></div>
+            </div>
         </div>
-        
-        <div class="botones" id="botones-respuesta">
-            <button class="si" onclick="responder(true)">Sí</button>
-            <button class="no" onclick="responder(false)">No</button>
-        </div>
-        
-        <div id="mensaje-final"></div>
     </div>
 
     <script>
