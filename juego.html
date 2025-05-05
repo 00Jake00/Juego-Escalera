@@ -508,35 +508,44 @@
         }
 
         function enviarDatosMicrosoftForms() {
-            const formUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=LWWWsNsjUUeqfgSyJ2euw8fhLCxZDGpJoFN6kimyr4pUREVFMUE2R1NIVFBGVldOS1lCQ1dEQVM4OC4u";
+            // URL base del formulario (COPIADA DIRECTAMENTE DE TU ENLACE)
+            const baseUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=LWWWsNsjUUeqfgSyJ2euw8fhLCxZDGpJoFN6kimyr4pUREVFMUE2R1NIVFBGVldOS1lCQ1dEQVM4OC4u";
             
-            // Prepara los datos para enviar
-            const datos = {
-                "entry.1234567890": escalon.toString(), // Reemplaza con el ID real del campo de escalón
-                "entry.9876543210": navigator.userAgent // Reemplaza con el ID real del campo de dispositivo
-            };
-
-            // Envía los datos
-            fetch(formUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams(datos)
-            }).catch(error => console.error('Error al enviar datos:', error));
+            // IDs de campos (EXTRAÍDOS DE TU URL)
+            const campoEscalon = "rd2be025cbcfc47e1807a9922dc826ba0";
+            const campoExtra = "r2d8041b1ca894cea88f3b2e8666d84e8";
+            
+            // 1. Opción SEGURA: Abrir formulario en nueva pestaña con datos prellenados
+            const urlConDatos = `${baseUrl}&${campoEscalon}=${escalon}&${campoExtra}=${encodeURIComponent("Completado en " + new Date().toLocaleString())}`;
+            window.open(urlConDatos, '_blank');
+            
+            // 2. Opción de respaldo: Envío silencioso vía imagen (para analytics)
+            const img = new Image();
+            img.src = `${baseUrl}?${campoEscalon}=${escalon}&${campoExtra}=tracking&nocache=${Math.random()}`;
+            
+            // 3. Guardar en localStorage por si falla todo
+            localStorage.setItem('ultimoEscalon', JSON.stringify({
+                escalon: escalon,
+                fecha: new Date().toISOString()
+            }));
         }
 
         function enviarResultados() {
             const nombre = document.getElementById("nombre").value;
             const email = document.getElementById("email").value;
             
-            if (email && !validateEmail(email)) {
+            // Validación básica
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 alert("Por favor ingresa un email válido");
                 return;
             }
             
-            // Aquí puedes agregar código para enviar los datos adicionales
-            alert("Gracias por participar. ¡Tus respuestas han sido registradas!");
+            // Enviar a Forms junto con los otros datos
+            const baseUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=LWWWsNsjUUeqfgSyJ2euw8fhLCxZDGpJoFN6kimyr4pUREVFMUE2R1NIVFBGVldOS1lCQ1dEQVM4OC4u";
+            const urlConDatos = `${baseUrl}&rd2be025cbcfc47e1807a9922dc826ba0=${escalon}&r2d8041b1ca894cea88f3b2e8666d84e8=${encodeURIComponent(nombre || "Anónimo")}_${encodeURIComponent(email || "sin-email")}`;
+            
+            window.open(urlConDatos, '_blank');
+            alert("¡Gracias por participar!");
             formularioFinal.style.display = "none";
         }
 
