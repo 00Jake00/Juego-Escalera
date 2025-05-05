@@ -36,7 +36,6 @@
             }
         }
         
-        /* Fondo diferente para móviles */
         @media (max-width: 768px) {
             body {
                 background-image: url('CNSCC_Campana Madres_FondoMobiles.jpg');
@@ -68,7 +67,6 @@
             height: auto;
         }
         
-        /* Contenedor principal del juego (escalera + preguntas) */
         .juego-container {
             display: flex;
             width: 100%;
@@ -78,7 +76,6 @@
             margin-top: 20px;
         }
         
-        /* Ajustes específicos para móviles */
         @media (max-width: 768px) {
             .main-container {
                 padding: 15px;
@@ -260,7 +257,6 @@
             font-family: 'Museo Sans Rounded', sans-serif;
         }
 
-        /* Estilos del botón de instrucciones */
         .btn-instrucciones {
             position: fixed;
             bottom: 20px;
@@ -287,38 +283,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
-        /* Formulario de resultados */
-        #formulario-final {
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        #formulario-final input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-family: 'Museo Sans Rounded', sans-serif;
-        }
-        
-        #formulario-final button {
-            width: 100%;
-            margin-top: 10px;
-        }
-        
         @media (max-width: 768px) {
             .reflexion, .dato-importante {
                 font-size: 16px;
@@ -343,10 +307,6 @@
                 left: 15px;
                 padding: 8px 12px;
                 font-size: 13px;
-            }
-
-            #formulario-final {
-                max-width: 100%;
             }
         }
     </style>
@@ -385,18 +345,10 @@
                 </div>
                 
                 <div id="mensaje-final"></div>
-
-                <!-- Formulario simplificado -->
-                <div id="formulario-final">
-                    <input type="text" id="nombre" placeholder="Tu nombre (opcional)">
-                    <input type="email" id="email" placeholder="Tu email (opcional)">
-                    <button class="btn-continuar" onclick="enviarResultados()">Enviar respuestas</button>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Botón de instrucciones -->
     <button class="btn-instrucciones" onclick="location.href='index.html'">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -405,7 +357,6 @@
     </button>
 
     <script>
-        // Preguntas actualizadas con las nuevas reflexiones
         const preguntas = [
             {
                 texto: "¿Ayudas con las labores del hogar, como tender la cama, lavar platos, barrer o sacar la basura?",
@@ -450,7 +401,6 @@
         const botonesRespuesta = document.getElementById("botones-respuesta");
         const avatar = document.getElementById("avatar");
         const mensajeFinal = document.getElementById("mensaje-final");
-        const formularioFinal = document.getElementById("formulario-final");
         const escalera = document.getElementById("escalera").children;
 
         function mostrarPregunta() {
@@ -473,7 +423,6 @@
                 avatar.style.transform = `translateY(-${escalon * 60}px)`;
             }
             
-            // Mostrar reflexión
             preguntaTexto.style.display = "none";
             botonesRespuesta.style.display = "none";
             reflexionContainer.style.display = "flex";
@@ -489,7 +438,6 @@
             botonesRespuesta.style.display = "none";
             reflexionContainer.style.display = "none";
             mensajeFinal.style.display = "block";
-            formularioFinal.style.display = "flex"; // Cambiado a flex para el nuevo diseño
             
             let mensaje = "";
             switch(escalon) {
@@ -522,62 +470,24 @@
             
             mensajeFinal.innerHTML = mensaje;
             
-            // Enviar solo los datos del juego (sin abrir pestaña)
-            enviarDatosJuego();
+            // Enviar datos directamente al Forms
+            enviarDatosMicrosoftForms();
         }
 
-        function enviarDatosJuego() {
+        function enviarDatosMicrosoftForms() {
             const baseUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=LWWWsNsjUUeqfgSyJ2euw8fhLCxZDGpJoFN6kimyr4pUREVFMUE2R1NIVFBGVldOS1lCQ1dEQVM4OC4u";
             
-            // IDs de campos para el juego
+            // IDs de campos
             const campoEscalon = "rd2be025cbcfc47e1807a9922dc826ba0";
             const campoFecha = "r2d8041b1ca894cea88f3b2e8666d84e8";
             
-            // Envío silencioso vía imagen (no abre pestaña)
+            // Envío seguro que abre el Forms en nueva pestaña
+            const urlConDatos = `${baseUrl}&${campoEscalon}=${escalon}&${campoFecha}=${encodeURIComponent(new Date().toLocaleString())}`;
+            window.open(urlConDatos, '_blank');
+            
+            // Envío silencioso adicional como respaldo
             const img = new Image();
-            img.src = `${baseUrl}?${campoEscalon}=${escalon}&${campoFecha}=${encodeURIComponent(new Date().toLocaleString())}&nocache=${Math.random()}`;
-            
-            // Guardar en localStorage por si el usuario completa el formulario después
-            localStorage.setItem('datosJuego', JSON.stringify({
-                escalon: escalon,
-                fecha: new Date().toISOString()
-            }));
-        }
-
-        function enviarResultados() {
-            const nombre = document.getElementById("nombre").value.trim();
-            const email = document.getElementById("email").value.trim();
-            
-            // Validación solo si se ingresó email
-            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                alert("Por favor ingresa un email válido o deja el campo vacío");
-                return;
-            }
-            
-            // Obtener datos del juego guardados
-            const datosGuardados = JSON.parse(localStorage.getItem('datosJuego')) || {
-                escalon: escalon,
-                fecha: new Date().toISOString()
-            };
-            
-            // Construir URL para formulario
-            const baseUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=LWWWsNsjUUeqfgSyJ2euw8fhLCxZDGpJoFN6kimyr4pUREVFMUE2R1NIVFBGVldOS1lCQ1dEQVM4OC4u";
-            const params = new URLSearchParams({
-                "rd2be025cbcfc47e1807a9922dc826ba0": datosGuardados.escalon,
-                "r2d8041b1ca894cea88f3b2e8666d84e8": datosGuardados.fecha,
-                "rfecd30719b7b4dcc873a77fe505ad180": nombre || "No proporcionado",
-                "rfd2affd894b7437a8abef3b49b1d7bab": email || "No proporcionado"
-            });
-            
-            // Abrir en nueva pestaña
-            window.open(`${baseUrl}&${params.toString()}`, '_blank');
-            
-            // Feedback al usuario
-            alert("¡Gracias por participar en el juego!");
-            formularioFinal.style.display = "none";
-            
-            // Limpiar storage
-            localStorage.removeItem('datosJuego');
+            img.src = `${baseUrl}?${campoEscalon}=${escalon}&${campoFecha}=${Date.now()}&silent=1`;
         }
 
         // Iniciar el juego
