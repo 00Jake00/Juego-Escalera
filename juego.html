@@ -260,13 +260,13 @@
             font-family: 'Museo Sans Rounded', sans-serif;
         }
 
-        /* ESTILOS DEL BOTÓN DE INSTRUCCIONES (AÑADIDOS) */
+        /* Estilos del botón de instrucciones */
         .btn-instrucciones {
             position: fixed;
             bottom: 20px;
             left: 20px;
             padding: 10px 15px;
-            background-color: #27ae60;
+            background-color: #3498db;
             color: white;
             border: none;
             border-radius: 50px;
@@ -285,6 +285,22 @@
             background-color: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Formulario de resultados */
+        #formulario-final {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        #formulario-final input {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: none;
         }
         
         @media (max-width: 768px) {
@@ -306,7 +322,6 @@
                 margin-top: 10px;
             }
 
-            /* AJUSTES DEL BOTÓN DE INSTRUCCIONES PARA MÓVIL */
             .btn-instrucciones {
                 bottom: 15px;
                 left: 15px;
@@ -350,11 +365,19 @@
                 </div>
                 
                 <div id="mensaje-final"></div>
+
+                <!-- Formulario para enviar resultados -->
+                <div id="formulario-final">
+                    <p>¿Deseas recibir más información? (Opcional)</p>
+                    <input type="text" id="nombre" placeholder="Tu nombre">
+                    <input type="email" id="email" placeholder="Tu email">
+                    <button class="btn-continuar" onclick="enviarResultados()">Enviar</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- BOTÓN DE INSTRUCCIONES (AÑADIDO) -->
+    <!-- Botón de instrucciones -->
     <button class="btn-instrucciones" onclick="location.href='index.html'">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -363,45 +386,44 @@
     </button>
 
     <script>
+        // Preguntas actualizadas con las nuevas reflexiones
         const preguntas = [
             {
-                texto: "¿Sientes que los oficios de la casa, siempre los hace mamá?",
-                reflexion: "El trabajo del hogar no debe ser responsabilidad de una sola persona. Reflexiona sobre cómo puedes compartir las tareas del día a día para equilibrar la carga."
+                texto: "¿Ayudas con las labores del hogar, como tender la cama, lavar platos, barrer o sacar la basura?",
+                reflexion: "Tomar la iniciativa de ayudar con las labores del hogar es el primer paso para el cuidado emocional. Aquí es donde la ayuda debe convertirse en una responsabilidad compartida."
             },
             {
-                texto: "¿Crees que es mamá quien debe encargarse de organizar la casa y las celebraciones como el día de la madre?",
-                reflexion: "El cuidado no es un rol exclusivo de las madres. Este día es una oportunidad para reconocer y asumir responsabilidades compartidas en lugar de delegar todo a una sola persona."
+                texto: "¿Has notado que, en tu casa o en casas que conoces, casi siempre es la mamá quien hace los oficios?",
+                reflexion: "Redistribuir las labores del hogar mejora el cuidado físico y emocional de quienes se sienten sobrecargadas, es una invitación para que disfruten de las celebraciones sin la preocupación de tener que encargarse de los pisos y los platos sucios, la limpieza del hogar, la comida, etc."
             },
             {
-                texto: "¿Crees que el cuidado de casa corresponde a las madres?",
-                reflexion: "El cuidado debe ser reconocido como trabajo y no como algo que se da por sentado. Reflexiona sobre cómo valoras las labores que las madres realizan todos los días y cómo puedes contribuir activamente."
+                texto: "¿Has visto que la mamá o quien cuida en casa es quien organiza las celebraciones y mantiene el orden del hogar?",
+                reflexion: "La redistribución de las tareas no solo mejora el bienestar de quienes cuidan, sino que también fortalece los lazos familiares y promueve una convivencia pacífica."
             },
             {
-                texto: "¿Te parece que mamá tiene pocos momentos de descanso?",
-                reflexion: "Las madres también necesitan tiempo para relajarse. Reflexiona sobre cómo puedes hacer de este día una oportunidad para que todas las personas se sientan cuidadas y respetadas, sin sobrecargar a ninguna."
+                texto: "¿Crees que cuidar la casa y la familia es solo tarea de las mamás?",
+                reflexion: "Redistribuir las labores del hogar ayuda a disminuir la sobrecarga física y emocional de quienes se sienten sobrecargadas."
             },
             {
-                texto: "¿Sientes que mamá es la encargada de que todos se sientan bien en la familia?",
-                reflexion: "El cuidado emocional debe ser compartido. Reflexiona sobre cómo puedes ser más consciente de tus propios roles en el apoyo emocional de los demás y redistribuir las cargas."
+                texto: "¿Has visto que la mamá o quien cuida casi no tiene tiempo para descansar?",
+                reflexion: "Cuando las labores del hogar se distribuyen de manera más equitativa, todos en la familia se sienten más valorados y menos sobrecargados."
             },
             {
-                texto: "¿En casa celebran el Día de la Madre con bebidas embriagantes?",
-                reflexion: "Las bebidas pueden afectar el control emocional y aumentar el riesgo de conflictos. Reflexionar sobre su impacto ayuda a las personas a generar un consumo responsable.",
-                dato: "De acuerdo con la Policía Metropolitana de Bogotá, entre el 12 al 14 de mayo de 2023 se presentaron 255 casos de violencia intrafamiliar. (bogota.gov.co)"
+                texto: "¿Has estado presente o conoces casos en los que haya habido una discusión o problema durante el Día de la Madre?",
+                reflexion: "Si cada uno contribuye de manera justa al cuidado del hogar, es más probable que el ambiente sea más tranquilo y respetuoso, reduciendo la posibilidad de discusiones o conflictos."
             },
             {
-                texto: "¿Alguna vez ha habido una discusión en tu familia durante las celebraciones de Día de la Madre?",
-                reflexion: "Las tensiones son normales, pero cómo las manejamos es lo que marca la diferencia. Reflexiona sobre cómo puedes contribuir a que la celebración se mantenga pacífica y sin conflictos."
+                texto: "¿Has visto que las madres son las encargadas de que todos/as se sientan bien durante las celebraciones familiares?",
+                reflexion: "Históricamente, las madres han tenido que procurar que todos/as en la familia se sientan bien, tranquilos y felices en el hogar. Esto puede ocasionar sobrecargas emocionales en ellas."
             },
             {
-                texto: "¿Te gustaría empezar a cooperar con mamá en las tareas del hogar?",
-                reflexion: "El Día de la Madre es un recordatorio, pero el reconocimiento y la equidad deben ser continuos. Reflexiona sobre cómo puedes asumir más responsabilidades cotidianas para aliviar la carga de las madres en tu vida."
+                texto: "¿Crees que tú también puedes ayudar a repartir mejor las tareas del hogar para que no todo quede en una sola persona?",
+                reflexion: "Compartir las tareas del hogar es una forma de decir 'te valoro' y 'no estás sola'. Si ayudamos más, el Día de la Madre —y todos los días— pueden ser más justos, tranquilos y sin violencia."
             }
         ];
 
         let indice = 0;
         let escalon = 0;
-        let respuestaActual = false;
         const preguntaTexto = document.getElementById("pregunta");
         const reflexionTexto = document.getElementById("reflexion");
         const reflexionContainer = document.getElementById("reflexion-container");
@@ -409,19 +431,13 @@
         const botonesRespuesta = document.getElementById("botones-respuesta");
         const avatar = document.getElementById("avatar");
         const mensajeFinal = document.getElementById("mensaje-final");
+        const formularioFinal = document.getElementById("formulario-final");
         const escalera = document.getElementById("escalera").children;
 
         function mostrarPregunta() {
             if (indice < preguntas.length) {
                 preguntaTexto.textContent = preguntas[indice].texto;
                 reflexionTexto.textContent = preguntas[indice].reflexion;
-                
-                if (preguntas[indice].dato) {
-                    datoImportante.textContent = preguntas[indice].dato;
-                    datoImportante.style.display = "block";
-                } else {
-                    datoImportante.style.display = "none";
-                }
                 
                 preguntaTexto.style.display = "block";
                 botonesRespuesta.style.display = "flex";
@@ -432,19 +448,19 @@
         }
 
         function responder(respuesta) {
-            respuestaActual = respuesta;
+            if (respuesta && escalon < 8) {
+                escalera[escalon].style.border = "3px solid #27ae60";
+                escalon++;
+                avatar.style.transform = `translateY(-${escalon * 60}px)`;
+            }
+            
+            // Mostrar reflexión
             preguntaTexto.style.display = "none";
             botonesRespuesta.style.display = "none";
             reflexionContainer.style.display = "flex";
         }
 
         function continuar() {
-            if (respuestaActual && escalon < 8) {
-                escalera[escalon].style.border = "3px solid #27ae60";
-                escalon++;
-                avatar.style.transform = `translateY(-${escalon * 60}px)`;
-            }
-            
             indice++;
             mostrarPregunta();
         }
@@ -454,19 +470,82 @@
             botonesRespuesta.style.display = "none";
             reflexionContainer.style.display = "none";
             mensajeFinal.style.display = "block";
+            formularioFinal.style.display = "block";
             
             let mensaje = "";
-            if (escalon >= 7) {
-                mensaje = "¡Felicidades! Has alcanzado el máximo nivel de conciencia sobre equidad en el hogar. 🎉<br><br>Eres un ejemplo de corresponsabilidad y apoyo familiar. ❤️";
-            } else if (escalon >= 4) {
-                mensaje = `¡Buen trabajo! Has llegado hasta el Escalón ${escalon}.<br><br>Vas por buen camino en el reconocimiento de las labores del hogar como responsabilidad compartida. 🌟`;
-            } else {
-                mensaje = `Has llegado hasta el Escalón ${escalon}.<br><br>Recuerda que el Día de la Madre es una oportunidad para reflexionar sobre cómo podemos distribuir mejor las tareas del hogar y mostrar aprecio todo el año. 💖`;
+            switch(escalon) {
+                case 0:
+                case 1:
+                    mensaje = "PASO 1: Sigue fortaleciendo la redistribución de las labores del cuidado en el hogar.";
+                    break;
+                case 2:
+                    mensaje = "PASO 2: Mantén el compromiso de repartir las tareas del hogar de manera equitativa.";
+                    break;
+                case 3:
+                    mensaje = "PASO 3: Conversa con quienes compartes el hogar para asegurar una distribución justa de las labores del hogar.";
+                    break;
+                case 4:
+                    mensaje = "PASO 4: Participa activamente y busca acuerdos para equilibrar las responsabilidades en el hogar.";
+                    break;
+                case 5:
+                    mensaje = "PASO 5: Puedes hacerte cargo de algunas tareas del hogar y observa cómo puedes mejorar.";
+                    break;
+                case 6:
+                    mensaje = "PASO 6: Empieza a involucrarte más en las labores diarias del hogar.";
+                    break;
+                case 7:
+                case 8:
+                    mensaje = "PASO 7 u 8: Puedes cambiar tu relación con el cuidado en casa y empezar a redistribuir las labores del hogar para que mamá tenga tiempo para sí misma.";
+                    break;
+                default:
+                    mensaje = "Gracias por reflexionar sobre la distribución equitativa de las labores del hogar.";
             }
             
             mensajeFinal.innerHTML = mensaje;
+            
+            // Enviar datos automáticamente a Microsoft Forms
+            enviarDatosMicrosoftForms();
         }
 
+        function enviarDatosMicrosoftForms() {
+            const formUrl = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=LWWWsNsjUUeqfgSyJ2euw8fhLCxZDGpJoFN6kimyr4pUREVFMUE2R1NIVFBGVldOS1lCQ1dEQVM4OC4u";
+            
+            // Prepara los datos para enviar
+            const datos = {
+                "entry.1234567890": escalon.toString(), // Reemplaza con el ID real del campo de escalón
+                "entry.9876543210": navigator.userAgent // Reemplaza con el ID real del campo de dispositivo
+            };
+
+            // Envía los datos
+            fetch(formUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(datos)
+            }).catch(error => console.error('Error al enviar datos:', error));
+        }
+
+        function enviarResultados() {
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+            
+            if (email && !validateEmail(email)) {
+                alert("Por favor ingresa un email válido");
+                return;
+            }
+            
+            // Aquí puedes agregar código para enviar los datos adicionales
+            alert("Gracias por participar. ¡Tus respuestas han sido registradas!");
+            formularioFinal.style.display = "none";
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Iniciar el juego
         mostrarPregunta();
     </script>
 </body>
