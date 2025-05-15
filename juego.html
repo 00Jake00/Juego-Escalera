@@ -495,9 +495,13 @@
             }
             
             mensajeFinal.innerHTML = mensaje;
+
+
+            // Esperar 3 segundos antes de abrir el formulario
+            setTimeout(() => {
+                enviarDatosMicrosoftForms();
+            }, 4000); // 3000 milisegundos = 3 segundos
             
-            // Enviar datos directamente al Forms
-            enviarDatosMicrosoftForms();
         }
 
         function enviarDatosMicrosoftForms() {
